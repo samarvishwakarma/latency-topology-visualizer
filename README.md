@@ -1,40 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Latency Topology Visualizer
 
-## Getting Started
+## Overview
+This is a Next.js application that visualizes cryptocurrency exchange server locations and real-time/historical latency data on a 3D world map, built with TypeScript, Three.js, and Tailwind CSS. It includes features like interactive 3D globe, latency connections, historical trends, cloud provider regions, and responsive design.
 
-First, run the development server:
+## Features
+- **3D World Map**: Interactive globe with rotation, zoom, and pan using Three.js.
+- **Exchange Servers**: Markers for major exchanges (Binance, OKX, Deribit) with provider-based coloring (AWS: red, GCP: green, Azure: blue).
+- **Real-time Latency**: Animated connections with color-coded latency (green: <50ms, yellow: 50-100ms, red: >100ms).
+- **Historical Trends**: Time-series chart for latency trends with selectable time ranges.
+- **Cloud Regions**: Visualized as ellipses with provider information.
+- **Interactive Controls**: Filter by exchange/provider, time range selector, and theme toggle.
+- **Responsive Design**: Optimized for desktop and mobile with touch controls.
+- **Bonus Features**: Dark/light theme toggle, mock heatmap (placeholder).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Assumptions
+- Latency data is mocked due to lack of free, real-time latency APIs. In production, use Cloudflare Radar or similar.
+- Earth texture (`earth-texture.jpg`) must be added to the `public` folder.
+- Historical data is mocked; a real implementation would use a database or API.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup Instructions
+1. **Clone the Repository**:
+   ```bash
+   git clone <repository-url>
+   cd latency-topology-visualizer
+   ```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. **Add Earth Texture**:
+   - Download a high-resolution Earth texture (e.g., from NASA's Visible Earth) and place it in `public/earth-texture.jpg`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+4. **Run the Project**:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:3000` in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Dependencies
+- Next.js: ^13.0.0
+- TypeScript: ^4.9.0
+- Three.js: ^0.178.0
+- react-chartjs-2: ^5.0.0
+- chart.js: ^4.0.0
+- swr: ^2.0.0
+- Tailwind CSS: ^3.0.0
 
-## Learn More
+## Project Structure
+- `pages/index.tsx`: Entry point rendering `LatencyTopologyVisualizer`.
+- `components/LatencyTopologyVisualizer.tsx`: Main component for 3D visualization.
+- `components/ControlPanel.tsx`: UI for filters and controls.
+- `components/LatencyChart.tsx`: Time-series chart for latency trends.
+- `components/MapContext.tsx`: Context for managing map data.
+- `api.ts`: Type definitions and mock API for latency data.
+- `styles.css`: Tailwind CSS and custom styles.
 
-To learn more about Next.js, take a look at the following resources:
+## Video Demonstration
+A video walkthrough is included in the submission, explaining the code structure, functionality, and how to run the project.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Notes
+- Replace mock `fetchLatencyData` with a real API (e.g., Cloudflare Radar) for production.
+- Optimize Three.js performance by reducing geometry complexity for mobile devices.
+- Add touch event listeners for mobile interactions (e.g., pinch-to-zoom).

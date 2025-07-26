@@ -5,11 +5,15 @@ import { MapContext } from './MapContext';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface LatencyChartProps {
-  pair: { from: string; fromProvider: string; to: string; toProvider: string };
+  pair?: { from: string; fromProvider: string; to: string; toProvider: string };
 }
 
-const LatencyChart: React.FC<LatencyChartProps> = ({ pair }) => {
+const LatencyChart: React.FC<LatencyChartProps> = ({ pair = { from: '', fromProvider: '', to: '', toProvider: '' } }) => {
   const { timeRange } = useContext(MapContext);
+
+  if (!pair.from || !pair.to) {
+    return null; // Prevent rendering if pair is incomplete
+  }
 
   // Generate labels and data based on timeRange
   const generateChartData = () => {
@@ -19,19 +23,19 @@ const LatencyChart: React.FC<LatencyChartProps> = ({ pair }) => {
     switch (timeRange) {
       case '1h':
         labels = Array.from({ length: 12 }, (_, i) => `${5 * (i + 1)}m`);
-        data = Array.from({ length: 12 }, () => Math.random() * 50 + 20); // Mock data: 20-70ms
+        data = Array.from({ length: 12 }, () => Math.random() * 50 + 20);
         break;
       case '24h':
         labels = Array.from({ length: 24 }, (_, i) => `${i + 1}h`);
-        data = Array.from({ length: 24 }, () => Math.random() * 60 + 30); // Mock data: 30-90ms
+        data = Array.from({ length: 24 }, () => Math.random() * 60 + 30);
         break;
       case '7d':
         labels = Array.from({ length: 7 }, (_, i) => `Day ${i + 1}`);
-        data = Array.from({ length: 7 }, () => Math.random() * 80 + 40); // Mock data: 40-120ms
+        data = Array.from({ length: 7 }, () => Math.random() * 80 + 40);
         break;
       case '30d':
         labels = Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`);
-        data = Array.from({ length: 30 }, () => Math.random() * 100 + 50); // Mock data: 50-150ms
+        data = Array.from({ length: 30 }, () => Math.random() * 100 + 50);
         break;
     }
 

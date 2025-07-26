@@ -1,18 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { MapContext } from './MapContext';
 import { ExchangeServer, CloudRegion } from '../api';
 
 interface ControlPanelProps {
-  exchangeServers: ExchangeServer[];
-  cloudRegions: CloudRegion[];
+  exchangeServers?: ExchangeServer[];
+  cloudRegions?: CloudRegion[];
   setSelectedPair: (pair: { from: string; fromProvider: string; to: string; toProvider: string }) => void;
   toggleTheme: () => void;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({ exchangeServers, setSelectedPair, toggleTheme }) => {
+const ControlPanel: React.FC<ControlPanelProps> = ({
+  exchangeServers = [],
+  cloudRegions = [],
+  setSelectedPair,
+  toggleTheme,
+}) => {
   const { timeRange, setTimeRange } = useContext(MapContext);
-  const [selectedExchange, setSelectedExchange] = useState<string>('');
-  const [selectedProvider, setSelectedProvider] = useState<string>('all');
+  const [selectedExchange, setSelectedExchange] = React.useState<string>('');
+  const [selectedProvider, setSelectedProvider] = React.useState<string>('all');
 
   return (
     <div className="control-panel">
@@ -56,12 +61,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ exchangeServers, setSelecte
       </div>
       <div className='flex flex-col'>
         <button onClick={toggleTheme} className="mt-2 border-2 rounded-2xl">Toggle Theme</button>
-        <button
-            onClick={() => selectedExchange && setSelectedPair({ from: selectedExchange, fromProvider: selectedProvider === 'all' ? 'AWS' : selectedProvider, to: selectedExchange, toProvider: selectedProvider === 'all' ? 'AWS' : selectedProvider })}
+      <button
+        onClick={() => selectedExchange && setSelectedPair({ from: selectedExchange, fromProvider: selectedProvider === 'all' ? 'AWS' : selectedProvider, to: selectedExchange, toProvider: selectedProvider === 'all' ? 'AWS' : selectedProvider })}
             className="mt-2 border-2 rounded-2xl"
-        >
-            View Latency
-        </button>
+      >
+        View Latency
+      </button>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ This is a Next.js application that visualizes cryptocurrency exchange server loc
 ## Setup Instructions
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:samarvishwakarma/latency-topology-visualizer.git
    cd latency-topology-visualizer
    ```
 

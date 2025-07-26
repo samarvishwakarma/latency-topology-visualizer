@@ -9,7 +9,7 @@ interface ControlPanelProps {
   toggleTheme: () => void;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({ exchangeServers, cloudRegions, setSelectedPair, toggleTheme }) => {
+const ControlPanel: React.FC<ControlPanelProps> = ({ exchangeServers, setSelectedPair, toggleTheme }) => {
   const { timeRange, setTimeRange } = useContext(MapContext);
   const [selectedExchange, setSelectedExchange] = useState<string>('');
   const [selectedProvider, setSelectedProvider] = useState<string>('all');

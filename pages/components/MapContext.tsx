@@ -28,3 +28,5 @@ export const MapContainer: React.FC<{ children: React.ReactNode }> = ({ children
     </MapContext.Provider>
   );
 };
+
+export default MapContainer;
